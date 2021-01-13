@@ -1,0 +1,23 @@
+﻿@model BookStore.Models.Category
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<h3>@ViewBag.Category.CategoryName</h3>
+<br />
+@foreach (var book in ViewBag.Books)
+{
+    <a href="/Books/Show/@book.BookId">@book.Title</a>
+    <br />
+}
+
+<br />
+<form method="post" action="/Categories/Delete/@Model.CategoryId">
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button type="submit">Delete</button>
+</form>
+
+<br />
+<a href="/Categories/Index">Back</a>

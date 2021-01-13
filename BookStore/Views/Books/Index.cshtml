@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Lista carti";
+}
+
+<style>
+    a, a:hover {
+        color: black;
+    }
+</style>
+
+
+
+<h1>@ViewBag.message</h1>
+
+<form class="card card-sm" method="GET">
+    <input class="form-control form-control-lg form-controlborderless pull-left" type="text" name="search" value="@ViewBag.SearchString" placeholder="Search topics or keywords">
+    <button class="btn btn-success" style="margin-left:5px" type="submit">
+        <i class="fa fa-search"><span class="glyphicon glyphicon-search Search"></span> Search</i>
+    </button>
+    <br/>
+    <input type="radio" id="crescator" name="pret" value="crescator">
+    <label for="male"> Crescator dupa pret</label>
+    <input type="radio" id="descrescator" name="pret" value="descrescator">
+    <label for="female"> Descrescator dupa pret</label>
+    <div class="clearfix"></div>
+</form>
+<br />
+<br />
+<br />
+<div class="row">
+
+    @foreach (BookStore.Models.Book book in ViewBag.Books)
+    {
+
+
+
+
+
+        
+            <div class="col-sm-4">
+                @Html.Partial("BookInfo", book)
+
+            </div>
+        
+
+    }
+</div>
+@if (User.IsInRole("Admin"))
+{
+    <a href="/Categories/Index/">Afisare lista categorii</a>
+    <br />
+    <a href="/Books/New">Adauga carte</a>
+    <br />
+}

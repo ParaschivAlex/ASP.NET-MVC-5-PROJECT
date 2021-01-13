@@ -1,0 +1,57 @@
+﻿
+<div class="row">
+	<div class=" col-md-6">
+		<h3><strong>Lista Useri</strong></h3>
+		@foreach (var user in ViewBag.UsersList)
+		{
+			<div class="panel-heading">Nume utilizator: @user.UserName</div>
+
+			<div class="panel-body">
+
+				<i class="glyphicon glyphicon-envelope"></i> Email utilizator: <span class="label label-default">@user.Email</span>
+
+				<br /><br />
+
+				@if (@user.PhoneNumber != null)
+				{
+					<i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@user.PhoneNumber</span>
+				}
+
+			</div>
+
+			<div class="panel-footer">
+
+				<a class="btn btn-sm btn-success" href="/Users/Edit/@user.Id"> Editare utilizator</a>
+				<a class="btn btn-sm btn-success" href="/Users/Show/@user.Id"> Vizualizare utilizator</a>
+
+			</div>
+
+			<br /><br />
+		}
+	</div>
+
+	<div class="col-md-6">
+		<h3><strong>Produse in curs de acceptare</strong></h3>
+		@foreach (var book in ViewBag.cartiNeacceptate)
+		{
+			<div class="panel-heading"><strong>Nume produs: @book.Title</strong></div>
+
+
+			<div class="panel-footer">
+				<div class=" pull-left">
+					<form action="/Users/AcceptaProdus/@book.BookId">
+						<button class="glyphicon glyphicon-ok" style="border: none; background: transparent" type="submit"></button>
+					</form>
+				</div>
+
+				<div class="pull-right">
+					<form method="post" action="/Users/StergeProdus/@book.BookId">
+						<button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+					</form>
+
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		}
+	</div>
+</div>

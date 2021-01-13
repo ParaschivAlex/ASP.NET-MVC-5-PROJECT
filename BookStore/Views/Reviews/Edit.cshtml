@@ -1,0 +1,23 @@
+﻿@model BookStore.Models.Review
+
+<h2>Editare Review</h2>
+<form method="post" action="/Reviews/Edit/@Model.ReviewId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <br />
+    @Html.HiddenFor(m => m.ReviewId)
+
+    @Html.Label("Rating", "Numar stele 1:5")
+    <br />
+    @Html.EditorFor(m => m.Rating)
+    <br /><br />
+
+    @Html.Label("Comment", "Continut review")
+    <br />
+    @Html.Editor("Comment", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(m => m.Comment, "Maximum 150 caractere", new { @class = "text-danger " })
+    <br /><br />
+
+    @Html.HiddenFor(m => m.Date)
+
+    <button class="btn btn-success" type="submit">Editeaza review-ul</button>
+</form>

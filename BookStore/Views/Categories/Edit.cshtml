@@ -1,0 +1,14 @@
+﻿@model BookStore.Models.Category
+<!--La editare crapa-->
+<h2>Editare categorie</h2>
+<form method="post" action="/Categories/Edit/@Model.CategoryId">
+	@Html.HttpMethodOverride(HttpVerbs.Put)
+	<!--era sa plang de prostia mea ca am uitat asta si facea urat-->
+	@Html.HiddenFor(m => m.CategoryId)
+
+	@Html.Label("CategoryName", "Denumire categorie")
+	<br />
+	@Html.Editor("CategoryName")
+	<br /><br />
+	<button type="submit">Modifica categoria</button>
+</form>

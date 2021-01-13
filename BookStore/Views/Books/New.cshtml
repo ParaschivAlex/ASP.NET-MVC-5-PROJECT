@@ -1,0 +1,38 @@
+﻿@model BookStore.Models.Book
+
+<h2>Adaugare carte</h2>
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Books"))
+{
+	@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+	@Html.Label("Title", "Titlu carte")
+	@Html.ValidationMessageFor(m => m.Title, "Titlul este obligatoriu", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("Title", null, new { @class = "form-control" })
+	<br /><br />
+	@Html.Label("Author", "Autor")
+	@Html.ValidationMessageFor(m => m.Author, "Autorul este obligatoriu", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("Author", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("Price", "Pret")
+	@Html.ValidationMessageFor(m => m.Price, "Pretul este obligatoriu", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("Price", null, new { @class = "form-control" })
+	<br /><br />
+
+	@Html.Label("Description", "Descriere")
+	@Html.ValidationMessageFor(m => m.Description, "Descrierea este obligatorie", new { @class = "text-danger " })
+	<br />
+	@Html.TextBox("Description", null, new { @class = "form-control" })
+	<br /><br />
+
+	<label>Selectati categoria</label>
+	@Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"), "Selectati categoria", new { @class = "form-control" })
+	<br />
+	@Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+	<br />
+	<br />
+	<button type="submit">Adauga carte</button>
+}

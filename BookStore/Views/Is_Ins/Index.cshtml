@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<br />
+<br />
+@foreach (var q in ViewBag.Is_Ins)
+{
+    <h3 style="display:inline"> @q.Book.Title </h3>
+    <p style="display:inline;float:right;margin:10px;"> <strong>Sub-Total: $ @(q.Quantity * q.Book.Price) </strong></p>
+    <form method="post" action=@("/Is_Ins/EditMinus/" + q.Is_InId) style="display:inline;float:right;">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
+    </form>
+    <p style="display:inline;float:right;margin:10px;"><strong>@q.Quantity</strong></p>
+    <form method="post" action=@("/Is_Ins/EditPlus/" + q.Is_InId) style="display:inline;float:right;">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+    </form>
+
+    <br>
+    <hr / />
+}
+
+<h3>Total: $ @ViewBag.Suma</h3>
+

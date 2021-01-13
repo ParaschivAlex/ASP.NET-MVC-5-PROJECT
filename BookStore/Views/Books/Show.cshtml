@@ -1,0 +1,104 @@
+﻿@model BookStore.Models.Book
+@{
+    ViewBag.Title = "Show";
+}
+<h1 style="text-align:center">@ViewBag.Book.Title</h1>
+@if (ViewBag.Book.B_status != 1)
+{
+    <p>Nu se poate afisa cartea! Aceasta nu a fost verificata/acceptata!</p>
+}
+else
+{
+    <h2> Author: @ViewBag.Book.Author</h2>
+    <br />
+    <p>Price: $@ViewBag.Book.Price</p>
+    <br />
+    <p>Category: @ViewBag.Category.CategoryName</p>
+    <br />
+    <p> Description: @ViewBag.Book.Description </p>
+    <br />
+    if (User.IsInRole("Admin") || (User.IsInRole("Colaborator") && ViewBag.utilizatorCurent == ViewBag.Book.UserId))
+    {
+        <a href="/Books/Edit/@ViewBag.Book.BookId"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-pencil">Edit</button></a>
+        <form method="post" action="/Books/Delete/@ViewBag.Book.BookId" style="display:inline">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+        </form>
+    }
+    <hr />
+
+    <form method="post" action="/Is_Ins/New" style="display:inline">
+        <input type="hidden" name="BookId" value="@Model.BookId" />
+        <input type="hidden" name="Quantity" value="1" />
+        <button type="submit" class="btn btn-success">
+            <span class="glyphicon glyphicon-shopping-cart"></span> Adauga in cos
+        </button>
+    </form>
+
+
+    <a href="/Books/Index"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span> Go back</button></a>
+
+    <br />
+    <hr />
+
+    <h2> Adauga review</h2>
+    <br />
+    <form method="post" action="/reviews/new">
+
+        <input type="hidden" name="BookId"
+               value="@ViewBag.Book.BookId" />
+        <label> Nr stele </label>
+        <br />
+        <select name="Rating">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+
+        <label>Continut comentariu</label>
+        <br />
+<textarea class="form-control" name="Comment"></textarea>
+        <br />
+        <p>Maximum 150 caractere </p>
+        <button class="btn btn-success " type="submit">
+            Adauga comentariu
+        </button>
+    </form>
+}
+
+
+
+
+<br />
+
+@foreach (var rev in ViewBag.Reviews)
+
+{<!--<p> <hr /> @rev.User.Id <hr /> @ViewBag.utilizatorCurent<hr /></p>-->
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><p> Numar de stele: @rev.Rating </p></div>
+        <div class="panel-body"><p>@rev.Comment</p></div>
+        <div class="panel-footer"><p>@rev.User.UserName , @rev.Date</p></div>
+    </div>
+    <div>
+        <!--nu afiseaza butonul de delete doar pt cel care pune review-->
+        @if (rev.User.Id == ViewBag.utilizatorCurent || User.IsInRole("Admin"))
+        {
+            <div style="display: inline-block; float : left; margin-right: 15px">
+                <a class="glyphicon glyphicon-pencil" href="/Reviews/Edit/@rev.ReviewId"></a>
+            </div>
+            <div style="display: inline-block; float : left">
+                <form method="post" action="/Reviews/Delete/@rev.ReviewId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                </form>
+            </div>
+        }
+    </div>
+    <br />
+    <hr />
+    <br />
+
+}
+

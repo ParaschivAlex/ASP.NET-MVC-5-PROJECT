@@ -1,0 +1,20 @@
+﻿
+@{
+	ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+@if (TempData.ContainsKey("message"))
+{<h1>@ViewBag.message</h1>}
+@foreach (var category in ViewBag.Categories)
+{
+	@Html.Label("categoryName", "Denumire categorie")
+	<p>@category.CategoryName</p>
+	<a href="/Categories/Show/@category.CategoryId">Afisare categorie</a>
+	<br />
+	<a href="/Categories/Edit/@category.CategoryId">Editare categorie</a>
+	<br />
+	<br />
+}
+<a href="/Categories/New">Adauga o noua categorie</a>
+<br />
+<a href="/Books/Index">Lista carti</a>
